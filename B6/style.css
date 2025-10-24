@@ -99,6 +99,29 @@ main {
 }
 .search-wrapper {
   flex-grow: 1;
+  min-width: 200px;
+}
+.sort-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+.sort-wrapper label {
+  font-weight: 600;
+  white-space: nowrap;
+}
+select {
+  padding: 0.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--surface-color);
+  font-family: inherit;
+  cursor: pointer;
+}
+select:focus {
+  outline: 2px solid var(--secondary-color);
+  outline-offset: 2px;
 }
 
 /* ------------------------- */
@@ -145,14 +168,40 @@ main {
   display: flex;
   flex-direction: column;
 }
-.product-name {
-  font-size: 1.2rem;
+.product-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   margin-bottom: 0.5rem;
 }
-.product-desc {
-  color: var(--muted-text-color);
+.product-name {
+  font-size: 1.2rem;
   flex-grow: 1;
-  margin-bottom: 1rem;
+  margin: 0;
+}
+.delete-btn {
+  background-color: var(--danger-color);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.2rem;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  margin-left: 0.5rem;
+}
+.delete-btn:hover {
+  background-color: #b00000;
+  transform: scale(1.1);
+}
+.delete-btn:focus {
+  outline: 2px solid var(--danger-color);
+  outline-offset: 2px;
 }
 .product-price {
   font-size: 1.25rem;
@@ -252,5 +301,12 @@ footer a:hover {
   }
   .form-grid {
     grid-template-columns: 1fr;
+  }
+  .controls-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .sort-wrapper {
+    justify-content: space-between;
   }
 }

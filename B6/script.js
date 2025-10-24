@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   // --- DOM Element Selection ---
   const searchInput = document.getElementById("search-input");
+  const sortSelect = document.getElementById("sort-select");
   const productList = document.getElementById("product-list");
   const toggleFormBtn = document.getElementById("toggle-add-form-btn");
   const addProductSection = document.getElementById("add-product-section");
@@ -24,20 +25,58 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadProducts = async () => {
     const savedProducts = localStorage.getItem("products");
     if (savedProducts && savedProducts.length > 2) {
-      // Check if not just '[]'
       products = JSON.parse(savedProducts);
     } else {
       try {
         const response = await fetch("products.json");
         if (!response.ok) throw new Error("Network response was not ok");
         const defaultProducts = await response.json();
-        products = defaultProducts;
+        products = defaultProducts.map((product, index) => ({
+          ...product,
+          id: Date.now() + index, // Add unique ID to each product
+        }));
         saveProductsToLocalStorage();
       } catch (error) {
         console.error("Could not fetch initial products:", error);
         productList.innerHTML =
           "<p>Lỗi khi tải sản phẩm. Vui lòng thử lại.</p>";
       }
+    }
+  };
+
+  /**
+   * Sorts products based on the selected criteria.
+   */
+  const sortProducts = (productsToSort) => {
+    const sortValue = sortSelect.value;
+    const sortedProducts = [...productsToSort];
+
+    switch (sortValue) {
+      case "name-asc":
+        return sortedProducts.sort((a, b) =>
+          a.name.localeCompare(b.name, "vi")
+        );
+      case "name-desc":
+        return sortedProducts.sort((a, b) =>
+          b.name.localeCompare(a.name, "vi")
+        );
+      case "price-asc":
+        return sortedProducts.sort((a, b) => Number(a.price) - Number(b.price));
+      case "price-desc":
+        return sortedProducts.sort((a, b) => Number(b.price) - Number(a.price));
+      default:
+        return sortedProducts;
+    }
+  };
+
+  /**
+   * Deletes a product by ID.
+   */
+  const deleteProduct = (productId) => {
+    if (confirm("Bạn có chắc chắn muốn xóa sản phẩm này không?")) {
+      products = products.filter((product) => product.id !== productId);
+      saveProductsToLocalStorage();
+      renderProducts();
     }
   };
 
@@ -49,9 +88,12 @@ document.addEventListener("DOMContentLoaded", () => {
   const renderProducts = () => {
     productList.innerHTML = "";
     const query = searchInput.value.toLowerCase().trim();
-    const filteredProducts = products.filter((product) =>
+    let filteredProducts = products.filter((product) =>
       product.name.toLowerCase().includes(query)
     );
+
+    // Apply sorting
+    filteredProducts = sortProducts(filteredProducts);
 
     if (filteredProducts.length === 0) {
       productList.innerHTML = "<p>Không tìm thấy sản phẩm nào.</p>";
@@ -59,12 +101,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     filteredProducts.forEach((product) => {
-      const productElement = createProductElement(
-        product.name,
-        product.price,
-        product.desc,
-        product.imgUrl
-      );
+      const productElement = createProductElement(product);
       productList.appendChild(productElement);
     });
   };
@@ -72,17 +109,28 @@ document.addEventListener("DOMContentLoaded", () => {
   /**
    * Creates and returns a new product article element.
    */
-  const createProductElement = (name, price, desc, imgUrl) => {
-    const newProduct = document.createElement("article");
-    newProduct.className = "product-item";
-    newProduct.innerHTML = `
-      <img class="product-image" src="${imgUrl}" alt="Bìa minh họa ${name}" />
+  const createProductElement = (product) => {
+    const newProductElement = document.createElement("article");
+    newProductElement.className = "product-item";
+    newProductElement.innerHTML = `
+      <img class="product-image" src="${product.imgUrl}" alt="Bìa minh họa ${
+      product.name
+    }" />
       <div class="product-content">
-        <h3 class="product-name">${name}</h3>
-        <p class="product-desc">${desc}</p>
-        <p class="product-price">${Number(price).toLocaleString("vi-VN")}₫</p>
+        <div class="product-header">
+          <h3 class="product-name">${product.name}</h3>
+          <button class="delete-btn" onclick="deleteProduct(${
+            product.id
+          })" aria-label="Xóa sản phẩm ${product.name}">
+            ×
+          </button>
+        </div>
+        <p class="product-desc">${product.desc}</p>
+        <p class="product-price">${Number(product.price).toLocaleString(
+          "vi-VN"
+        )}₫</p>
       </div>`;
-    return newProduct;
+    return newProductElement;
   };
 
   // --- Event Handlers ---
@@ -123,7 +171,13 @@ document.addEventListener("DOMContentLoaded", () => {
       )}`;
     }
 
-    const newProduct = { name, price, desc, imgUrl };
+    const newProduct = {
+      id: Date.now(), // Unique ID for new products
+      name,
+      price,
+      desc,
+      imgUrl,
+    };
     products.unshift(newProduct);
     saveProductsToLocalStorage();
     renderProducts();
@@ -131,18 +185,21 @@ document.addEventListener("DOMContentLoaded", () => {
     toggleAddForm();
   };
 
+  // Make deleteProduct available globally for onclick handlers
+  window.deleteProduct = deleteProduct;
+
   // --- Initialization ---
 
   const init = async () => {
     searchInput.addEventListener("input", renderProducts);
-    toggleFormBtn.addEventListener("click", toggleAddForm); // Fixed function name
+    sortSelect.addEventListener("change", renderProducts);
+    toggleFormBtn.addEventListener("click", toggleAddForm);
     cancelBtn.addEventListener("click", () => {
       addProductForm.reset();
       toggleAddForm();
     });
     addProductForm.addEventListener("submit", handleAddProduct);
 
-    // Asynchronously load initial data and then render it
     await loadProducts();
     renderProducts();
   };
