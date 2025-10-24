@@ -1,0 +1,293 @@
+/* ------------------------- */
+/* General & Setup      */
+/* ------------------------- */
+
+/* Using CSS variables for easy theme management */
+:root {
+  --primary-color: #005f73;
+  --secondary-color: #0a9396;
+  --background-color: #f8f9fa;
+  --surface-color: #ffffff;
+  --text-color: #212529;
+  --muted-text-color: #6c757d;
+  --border-color: #dee2e6;
+  --danger-color: #d00000;
+  --radius: 8px;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Manrope", sans-serif;
+  line-height: 1.65;
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Add smooth transitions for a better user experience */
+button,
+a,
+.product-item {
+  transition: all 0.2s ease-in-out;
+}
+
+:focus-visible {
+  outline: 3px solid var(--secondary-color);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ------------------------- */
+/* Header & Navigation    */
+/* ------------------------- */
+header {
+  background-color: var(--surface-color);
+  border-bottom: 1px solid var(--border-color);
+  padding: 1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(10px);
+}
+
+header .container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  color: var(--primary-color);
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 1.5rem;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 600;
+}
+
+nav a:hover {
+  color: var(--primary-color);
+}
+
+/* ------------------------- */
+/* Main Content         */
+/* ------------------------- */
+main {
+  padding: 2rem 0;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 2px solid var(--secondary-color);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+}
+
+/* Controls (Search and Add Button) */
+.controls-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.search-wrapper {
+  flex-grow: 1;
+}
+
+/* ------------------------- */
+/* Product List         */
+/* ------------------------- */
+#product-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.product-item {
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+    0 4px 6px -4px rgba(0, 0, 0, 0.1);
+}
+
+.product-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.product-content {
+  padding: 1.25rem;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.product-name {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.product-desc {
+  color: var(--muted-text-color);
+  flex-grow: 1;
+  margin-bottom: 1rem;
+}
+
+.product-price {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  align-self: flex-end;
+}
+
+/* ------------------------- */
+/* Forms           */
+/* ------------------------- */
+input,
+textarea,
+button {
+  font-family: inherit;
+  font-size: 1rem;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+input[type="text"],
+input[type="search"],
+input[type="email"],
+input[type="number"],
+input[type="url"],
+textarea {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background-color: var(--surface-color);
+}
+
+button {
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.75rem 1.5rem;
+  cursor: pointer;
+  font-weight: 600;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+button:hover {
+  background-color: var(--secondary-color);
+}
+
+/* Specific form styling */
+#add-product-section,
+.contact-form {
+  background: var(--surface-color);
+  padding: 2rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  margin-top: 2rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+#cancel-btn {
+  background-color: var(--muted-text-color);
+}
+#cancel-btn:hover {
+  background-color: var(--text-color);
+}
+
+.error-message {
+  color: var(--danger-color);
+  font-weight: 600;
+  min-height: 1.5rem; /* Prevents layout shift */
+}
+
+/* ------------------------- */
+/* Footer           */
+/* ------------------------- */
+footer {
+  text-align: center;
+  margin-top: 3rem;
+  padding: 2rem 0;
+  background: var(--surface-color);
+  border-top: 1px solid var(--border-color);
+  color: var(--muted-text-color);
+}
+
+footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* ------------------------- */
+/* Responsive Design      */
+/* ------------------------- */
+@media (max-width: 768px) {
+  .section-title {
+    font-size: 1.75rem;
+  }
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}

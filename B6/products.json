@@ -1,0 +1,20 @@
+[
+  {
+    "name": "Sách C: Tư duy phản biện",
+    "price": "110000",
+    "desc": "Hướng dẫn phát triển tư duy phản biện và ra quyết định sáng suốt.",
+    "imgUrl": "images/book3.jpg"
+  },
+  {
+    "name": "Sách B: Kỹ năng học tập hiệu quả",
+    "price": "95000",
+    "desc": "Mẹo và phương pháp giúp tối ưu hóa thời gian và cải thiện kết quả học tập.",
+    "imgUrl": "images/book2.png"
+  },
+  {
+    "name": "Sách A: Lập trình cho người mới bắt đầu",
+    "price": "120000",
+    "desc": "Cuốn sách nhập môn giúp bạn nắm vững các khái niệm cơ bản về lập trình.",
+    "imgUrl": "images/book1.png"
+  }
+]

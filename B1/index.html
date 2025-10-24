@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cửa hàng Sách ABC</title>
+    <link rel="stylesheet" href="../B2/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <h1>Cửa hàng Sách ABC</h1>
+        <nav aria-label="Điều hướng chính">
+          <ul>
+            <li><a href="#">Trang chủ</a></li>
+            <li><a href="#products">Sản phẩm</a></li>
+            <li><a href="#contact">Liên hệ</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="container">
+      <section aria-labelledby="intro-title">
+        <h2 id="intro-title" class="section-title">Giới thiệu</h2>
+        <p>
+          Chào mừng bạn đến với Cửa hàng Sách ABC – nơi bạn có thể tìm thấy
+          những cuốn sách hay cho mọi lứa tuổi.
+        </p>
+      </section>
+
+      <div class="controls-container">
+        <div class="search-wrapper">
+          <input
+            type="search"
+            id="search-input"
+            placeholder="Tìm theo tên sách..."
+            aria-label="Tìm kiếm sản phẩm"
+          />
+        </div>
+        <button id="toggle-add-form-btn" aria-expanded="false">
+          Thêm sản phẩm
+        </button>
+      </div>
+
+      <section id="add-product-section" class="hidden" aria-live="polite">
+        <h3 class="section-title">Thêm sản phẩm mới</h3>
+        <form id="add-product-form">
+          <div class="form-grid">
+            <div class="form-field">
+              <label for="p-name">Tên sản phẩm</label>
+              <input id="p-name" name="p-name" type="text" required />
+            </div>
+            <div class="form-field">
+              <label for="p-price">Giá (₫)</label>
+              <input
+                id="p-price"
+                name="p-price"
+                type="number"
+                min="0"
+                required
+              />
+            </div>
+            <div class="form-field full-width">
+              <label for="p-desc">Mô tả</label>
+              <textarea id="p-desc" name="p-desc" rows="3" required></textarea>
+            </div>
+            <div class="form-field full-width">
+              <label for="p-img">URL Hình ảnh (tùy chọn)</label>
+              <input
+                id="p-img"
+                name="p-img"
+                type="url"
+                placeholder="https://..."
+              />
+            </div>
+          </div>
+          <p id="error-message" class="error-message"></p>
+          <div class="form-actions">
+            <button type="submit">Lưu sản phẩm</button>
+            <button type="button" id="cancel-btn">Hủy</button>
+          </div>
+        </form>
+      </section>
+
+      <section id="products" aria-labelledby="products-title">
+        <h2 id="products-title" class="section-title">Sản phẩm nổi bật</h2>
+        <div id="product-list">
+          <article class="product-item">
+            <img
+              class="product-image"
+              src="images/book1.png"
+              alt="Bìa minh họa Sách A"
+            />
+            <div class="product-content">
+              <h3 class="product-name">
+                Sách A: Lập trình cho người mới bắt đầu
+              </h3>
+              <p class="product-desc">
+                Cuốn sách nhập môn giúp bạn nắm vững các khái niệm cơ bản về lập
+                trình.
+              </p>
+              <p class="product-price">120.000₫</p>
+            </div>
+          </article>
+          <article class="product-item">
+            <img
+              class="product-image"
+              src="images/book2.png"
+              alt="Bìa minh họa Sách B"
+            />
+            <div class="product-content">
+              <h3 class="product-name">Sách B: Kỹ năng học tập hiệu quả</h3>
+              <p class="product-desc">
+                Mẹo và phương pháp giúp tối ưu hóa thời gian và cải thiện kết
+                quả học tập.
+              </p>
+              <p class="product-price">95.000₫</p>
+            </div>
+          </article>
+          <article class="product-item">
+            <img
+              class="product-image"
+              src="./images/book3.jpg"
+              alt="Bìa minh họa Sách C"
+            />
+            <div class="product-content">
+              <h3 class="product-name">Sách C: Tư duy phản biện</h3>
+              <p class="product-desc">
+                Hướng dẫn phát triển tư duy phản biện và ra quyết định sáng
+                suốt.
+              </p>
+              <p class="product-price">110.000₫</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title" class="section-title">Liên hệ</h2>
+        <form action="#" method="post" class="contact-form">
+          <p>
+            Điền thông tin của bạn dưới đây để nhận tin tức mới nhất từ cửa
+            hàng.
+          </p>
+          <div class="form-field">
+            <label for="name">Họ và tên</label>
+            <input id="name" name="name" type="text" required />
+          </div>
+          <div class="form-field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required />
+          </div>
+          <div class="form-field">
+            <label for="message">Thông điệp</label>
+            <textarea id="message" name="message" rows="4"></textarea>
+          </div>
+          <button type="submit">Gửi liên hệ</button>
+        </form>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>
+          © 2025 Cửa hàng Sách ABC · 123 Đường Trí Thức, Quận 1, TP.HCM ·
+          <a href="mailto:lienhe@abcbooks.vn">lienhe@abcbooks.vn</a>
+        </p>
+      </div>
+    </footer>
+
+    <script src="../B5/script.js"></script>
+  </body>
+</html>
