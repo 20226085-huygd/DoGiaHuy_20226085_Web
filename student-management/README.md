@@ -42,6 +42,11 @@ npm start
 
 Frontend sẽ chạy tại: http://localhost:3000
 
+**Lưu ý:** Nếu cần thay đổi URL API, tạo file `.env` trong thư mục `frontend` với nội dung:
+```
+REACT_APP_API_URL=http://localhost:5000/api/students
+```
+
 ## API Endpoints
 
 - `GET /api/students` - Lấy danh sách tất cả học sinh
